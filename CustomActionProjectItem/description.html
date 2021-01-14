@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>CustomActionProjectItem</title>
+        <link href="description/Galleries.css" type="text/css" rel="Stylesheet" /><link href="description/Layout.css" type="text/css" rel="Stylesheet" /><link href="description/Brand.css" type="text/css" rel="Stylesheet" />
+        <link href="description/iframedescription.css" rel="Stylesheet" type="text/css" />
+        <script src="description/offline.js" type="text/javascript"></script>
+        <style type="text/css">
+            #projectInfo {
+                overflow: auto;
+            }
+            #longDesc {
+                clear:both;
+                margin: 25px 0 10px 0;
+            }
+
+            #SampleIndexList{
+                margin-left: 15px;
+            }
+        </style>
+    </head>
+<body>
+    <div id="offlineDescription">
+        <h1>CustomActionProjectItem</h1>
+        <br/>
+        <div id="projectInfo">
+            <div class="section">
+                    <div class="itemBarLong tagsContainer">
+                        <label for="技术">技术</label>
+                        <div id="技术">
+                            SharePoint
+                        </div>
+                    </div>
+                    <div class="itemBarLong tagsContainer">
+                        <label for="主题">主题</label>
+                        <div id="主题">
+                            Extensibility, Custom Action, Language Samples, SharePoint Project Template
+                        </div>
+                    </div>
+                <div class="itemBarLong">
+                    <label for="Platforms">Platforms</label>
+                    <div id="Platforms">
+                        Desktop
+                    </div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="Requirements">Requirements</label>
+                    <div id="Requirements">
+                        
+                    </div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">Primary Language</label>
+                    <div id="LastUpdated">en-US</div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">上次更新日期</label>
+                    <div id="LastUpdated">2011/11/28</div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="License">许可证</label>
+                    <div id="License">
+                        <a href="license.rtf">MS-LPL</a></div>
+                </div>
+                <div class="itemBar">
+                    <div class="viewonlinecont">
+                        <a data-link="online" href="http://code.msdn.microsoft.com/CustomActionProjectItem-d639ba59">在线查看此示例</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+                   
+<script type="text/javascript">
+    function initializePage() {
+        var otherTabClass = 'otherTab';
+        var hiddenPreClass = 'hidden';
+
+        var htmlDecode = function(encodedData) {
+            var decodedData = "";
+            if (encodedData) {
+                var div = document.createElement('div');
+                div.innerHTML = encodedData;
+                decodedData = div.firstChild.nodeValue.replace( /\\r\\n/ig , '\r\n');
+            }
+            return decodedData;
+        };
+                
+        Galleries.iterateElem(Galleries.findElem(null, 'div', 'scriptcode'), function (index, scriptBlock) {
+            var titleElem = Galleries.findElem(scriptBlock, 'div', 'title')[0];
+            var labelElems = Galleries.findElem(titleElem, 'span');
+            if (labelElems.length == 0) {
+                labelElems = titleElem;
+            }
+            var languageSpans = Galleries.findElem(scriptBlock, 'span', 'hidden');
+            var pres = Galleries.findElem(scriptBlock, 'pre');
+            if (languageSpans.length > 0 && pres.length > 1) {
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    var languageSpan = languageSpans[index];
+                            
+                    elem.code = codePre.innerHTML.replace( /(\r(\n)?)|((\r)?\n)/ig , '\\r\\n');
+                            
+                    codePre.className = codePre.className.replace(hiddenPreClass, '');
+                            
+                    languageSpan.parentNode.removeChild(languageSpan);
+                });
+
+                pres = Galleries.findElem(scriptBlock, 'pre');
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    if (index == 0) {
+                        scriptBlock.activeTab = 0;
+                    }
+                    else {
+                        labelSpan.className += otherTabClass;
+                        codePre.className += hiddenPreClass;
+                    }
+                    Galleries.attachEventHandler(labelSpan, 'click', function(e) {
+                        var activeTab = scriptBlock.activeTab;
+                        labelElems[activeTab].className += otherTabClass;
+                        pres[activeTab].className += hiddenPreClass;
+
+                        codePre.className = codePre.className.replace(hiddenPreClass, '');
+                        labelSpan.className = labelSpan.className.replace(otherTabClass, '');
+                        scriptBlock.activeTab = index;
+                    });
+                });
+
+                var preview = Galleries.findElem(scriptBlock, 'div', 'preview');
+                if (preview.length == 0) {
+                    preview.push(pres[pres.length - 1]);
+                }
+                Galleries.iterateElem(preview, function(index, elem) {
+                    elem.parentNode.removeChild(elem);
+                });
+
+                if (window.clipboardData && clipboardData.setData) {
+                    var copyLink = document.createElement('a');
+                    copyLink.href = 'javascript:void(0);';
+                    copyLink.className = 'copyCode';
+                    copyLink.innerHTML = '复制代码';
+                    Galleries.attachEventHandler(copyLink, 'click', function (e) {
+                        clipboardData.setData("Text", htmlDecode(labelElems[scriptBlock.activeTab].code));
+                        return false;
+                    });
+                    scriptBlock.insertBefore(copyLink, scriptBlock.childNodes[0]);
+                }
+            }
+        });
+    }
+
+    Galleries.onWindowLoad(function(){
+        initializePage();
+    });
+
+</script>
+<div id="longDesc">
+    
+<p>' 版权所有© Microsoft Corporation。 &nbsp;保留所有权利。<br>
+' 此代码的发布遵从<br>
+' Microsoft 公共许可（MS-PL，http://go.microsoft.com/?linkid=9791213）的条款。<br>
+<br>
+<br>
+这是 Visual Studio 2010 扩展的示例，适用于新的 SharePoint 项目模板。 &nbsp;<br>
+该示例利用扩展性 API，这些 API 是 Visual Studio 2010 中新增的 SharePoint <br>
+开发工具的组成部分。扩展是针对 SharePoint 自定义操作的。 &nbsp;<br>
+若要正常使用此示例，需要安装 Visual Studio 2010 SDK。 &nbsp;它可以从 <br>
+http://go.microsoft.com/fwlink/?LinkId=164562 下载。<br>
+<br>
+该解决方案包含两个项目：<br>
+- 实现扩展的类库项目。<br>
+- 将扩展打包到 VSIX 文件中的 VSIX 项目。 该文件用于安装扩展。<br>
+<br>
+若要运行此示例，请在 Visual Studio 2010 中打开 Visual Basic 或 C# 版本的 <br>
+CustomActionProjectItem 解决方案，然后按 F5。 将进行以下操作：<br>
+- 从 ProjectItemDefinition 项目生成扩展。<br>
+- 从 CustomActionProjectItem 项目创建 VSIX 程序包。<br>
+- 启动 Visual Studio 的实验实例，其中安装了 VSIX 程序包。<br>
+<br>
+在 Visual Studio 的实验实例中，可以通过执行以下操作来测试自定义操作：<br>
+- 创建一个新的空 SharePoint 项目。 您在“新建项目”对话框的“SharePoint”节点下选择 <br>
+&nbsp;2010 节点后，就可使用此项目模板。 使用与打开的 CustomActionProjectItem <br>
+&nbsp;项目版本相同的编程语言（Visual Basic 或 C#）。<br>
+- 在 SharePoint 自定义向导中，键入 SharePoint 站点在本地计算机上的站点 <br>
+&nbsp;URL，然后单击“完成”。<br>
+- 创建项目后，在解决方案资源管理器中右击该项目节点，然后单击“添加”|“新建项...”。<br>
+- 在“添加新项”对话框中，单击“SharePoint”节点，选择“自定义操作”项，然后单击“添加”。<br>
+<br>
+该自定义操作即添加到项目中。 您可以尝试执行以下任务：<br>
+- 在解决方案资源管理器中，右击“CustomAction”节点，<br>
+&nbsp;然后单击“查看自定义操作设计器”菜单项。 此快捷菜单项由扩展添加。<br>
+- 在解决方案资源管理器中，选择“CustomAction”节点，然后打开“属性”窗口。 <br>
+&nbsp;验证名为“Custom Action Property”（自定义操作属性）<br>
+&nbsp;的自定义属性是否显示在“属性”窗口中。 此属性由扩展添加。 <br>
+- 编辑 CustomAction 项目项下的 Elements.xml 文件，然后按 F5 <br>
+&nbsp;将该文件部署到在创建项目时指定的本地站点。<br>
+<br>
+<br>
+<br>
+</p>
+
+</div>
+
+
+    </div>
+</body>
+</html>

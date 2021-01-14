@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>BDCSamples</title>
+        <link href="description/Galleries.css" type="text/css" rel="Stylesheet" /><link href="description/Layout.css" type="text/css" rel="Stylesheet" /><link href="description/Brand.css" type="text/css" rel="Stylesheet" />
+        <link href="description/iframedescription.css" rel="Stylesheet" type="text/css" />
+        <script src="description/offline.js" type="text/javascript"></script>
+        <style type="text/css">
+            #projectInfo {
+                overflow: auto;
+            }
+            #longDesc {
+                clear:both;
+                margin: 25px 0 10px 0;
+            }
+
+            #SampleIndexList{
+                margin-left: 15px;
+            }
+        </style>
+    </head>
+<body>
+    <div id="offlineDescription">
+        <h1>BDCSamples</h1>
+        <br/>
+        <div id="projectInfo">
+            <div class="section">
+                    <div class="itemBarLong tagsContainer">
+                        <label for="技术">技术</label>
+                        <div id="技术">
+                            SharePoint
+                        </div>
+                    </div>
+                    <div class="itemBarLong tagsContainer">
+                        <label for="主题">主题</label>
+                        <div id="主题">
+                            Language Samples, External Data Source, Database Connectivity
+                        </div>
+                    </div>
+                <div class="itemBarLong">
+                    <label for="Platforms">Platforms</label>
+                    <div id="Platforms">
+                        Desktop
+                    </div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="Requirements">Requirements</label>
+                    <div id="Requirements">
+                        
+                    </div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">Primary Language</label>
+                    <div id="LastUpdated">en-US</div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">上次更新日期</label>
+                    <div id="LastUpdated">2011/11/28</div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="License">许可证</label>
+                    <div id="License">
+                        <a href="license.rtf">MS-LPL</a></div>
+                </div>
+                <div class="itemBar">
+                    <div class="viewonlinecont">
+                        <a data-link="online" href="http://code.msdn.microsoft.com/BDCSamples-595b502b">在线查看此示例</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+                   
+<script type="text/javascript">
+    function initializePage() {
+        var otherTabClass = 'otherTab';
+        var hiddenPreClass = 'hidden';
+
+        var htmlDecode = function(encodedData) {
+            var decodedData = "";
+            if (encodedData) {
+                var div = document.createElement('div');
+                div.innerHTML = encodedData;
+                decodedData = div.firstChild.nodeValue.replace( /\\r\\n/ig , '\r\n');
+            }
+            return decodedData;
+        };
+                
+        Galleries.iterateElem(Galleries.findElem(null, 'div', 'scriptcode'), function (index, scriptBlock) {
+            var titleElem = Galleries.findElem(scriptBlock, 'div', 'title')[0];
+            var labelElems = Galleries.findElem(titleElem, 'span');
+            if (labelElems.length == 0) {
+                labelElems = titleElem;
+            }
+            var languageSpans = Galleries.findElem(scriptBlock, 'span', 'hidden');
+            var pres = Galleries.findElem(scriptBlock, 'pre');
+            if (languageSpans.length > 0 && pres.length > 1) {
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    var languageSpan = languageSpans[index];
+                            
+                    elem.code = codePre.innerHTML.replace( /(\r(\n)?)|((\r)?\n)/ig , '\\r\\n');
+                            
+                    codePre.className = codePre.className.replace(hiddenPreClass, '');
+                            
+                    languageSpan.parentNode.removeChild(languageSpan);
+                });
+
+                pres = Galleries.findElem(scriptBlock, 'pre');
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    if (index == 0) {
+                        scriptBlock.activeTab = 0;
+                    }
+                    else {
+                        labelSpan.className += otherTabClass;
+                        codePre.className += hiddenPreClass;
+                    }
+                    Galleries.attachEventHandler(labelSpan, 'click', function(e) {
+                        var activeTab = scriptBlock.activeTab;
+                        labelElems[activeTab].className += otherTabClass;
+                        pres[activeTab].className += hiddenPreClass;
+
+                        codePre.className = codePre.className.replace(hiddenPreClass, '');
+                        labelSpan.className = labelSpan.className.replace(otherTabClass, '');
+                        scriptBlock.activeTab = index;
+                    });
+                });
+
+                var preview = Galleries.findElem(scriptBlock, 'div', 'preview');
+                if (preview.length == 0) {
+                    preview.push(pres[pres.length - 1]);
+                }
+                Galleries.iterateElem(preview, function(index, elem) {
+                    elem.parentNode.removeChild(elem);
+                });
+
+                if (window.clipboardData && clipboardData.setData) {
+                    var copyLink = document.createElement('a');
+                    copyLink.href = 'javascript:void(0);';
+                    copyLink.className = 'copyCode';
+                    copyLink.innerHTML = '复制代码';
+                    Galleries.attachEventHandler(copyLink, 'click', function (e) {
+                        clipboardData.setData("Text", htmlDecode(labelElems[scriptBlock.activeTab].code));
+                        return false;
+                    });
+                    scriptBlock.insertBefore(copyLink, scriptBlock.childNodes[0]);
+                }
+            }
+        });
+    }
+
+    Galleries.onWindowLoad(function(){
+        initializePage();
+    });
+
+</script>
+<div id="longDesc">
+    
+<p>' 版权所有© Microsoft Corporation。 &nbsp;保留所有权利。<br>
+' 此代码的发布遵从<br>
+' Microsoft 公共许可（MS-PL，http://go.microsoft.com/?linkid=9791213）的条款。<br>
+<br>
+自述文件***<br>
+<br>
+应用于 VB 和 C# 示例项目。<br>
+<br>
+这些 BDC 示例连接到用作外部数据源的 Northwind 数据库。 <br>
+在运行示例项目之前，请仔细阅读下面的说明，并确保您拥有 Northwind 数据库连接。<br>
+<br>
+<br>
+****<br>
+准备 Northwind DB<br>
+****<br>
+<br>
+如果您已拥有 Northwind 数据库，则只需打开每个项目中的 Setting.setting <br>
+文件，并使用您自己的连接字符串更新 NORTHWNDConnectionString。<br>
+<br>
+否则，请执行以下步骤：<br>
+<br>
+1. 执行这些步骤时，假定您已在计算机上安装了随 Visual Studio 和 SharePoint Server <br>
+&nbsp; 免费提供的 SQL Express。 如果尚未安装，请先访问 <br>
+&nbsp; http://www.microsoft.com/express/sql/download/ 并安装 SQL Express。<br>
+<br>
+2. 创建“SampleNorthwind”DB。 为此，请打开 VS。转到“视图”-&gt;“服务器资源管理器”。 <br>
+&nbsp; 右击“服务器资源管理器”窗口中的“数据连接”节点，然后选择“创建新 SQL Server <br>
+&nbsp; 数据库”。<br>
+<br>
+3. 在提示对话框中，输入“localhost\sqlexpress”作为服务器名称，<br>
+&nbsp; 并提供新数据库名称“SampleNorthwind”。<br>
+<br>
+&nbsp; * 如果要使用 SharePoint Server 附带的 <br>
+&nbsp; &nbsp; SQL Express，请将“localhost\sqlexpress”替换为“localhost\sharepoint”。<br>
+<br>
+4. 启动命令提示符。<br>
+<br>
+5. 在命令提示符处，键入以下命令并按 Enter： <br>
+<br>
+sqlcmd -S localhost\sqlexpress -d samplenorthwind -i <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;CreateSampleNorthwindDB.sql 文件的路径&gt;<br>
+&nbsp; <br>
+&nbsp; * CreateSampleNorthwindDB.sql 与本自述文件位于同一文件夹中。 该文件会为您创建 <br>
+&nbsp; &nbsp; Customer 表架构和数据。<br>
+<br>
+<br>
+<br>
+部署 BDC 模型<br>
+<br>
+<br>
+现在可以打开示例项目。 您需要首先指定项目的站点 URL。 <br>
+为此，请单击项目节点，然后在“属性”窗口中，将“站点 URL”设置为“http://localhost”。 <br>
+此时按 F5 进行调试，或单击“生成”-&gt;“部署”来部署 BDC 模型。<br>
+<br>
+* 请注意，如果您要同时处理两个示例项目，建议您创建另一个数据库表来连接第二个项目。<br>
+<br>
+两个示例项目当前都连接到您刚刚创建的同一个 <br>
+DB，因此在运行时，可能只有一个项目正确连接到该数据库。 <br>
+为了避免发生任何数据冲突，强烈建议创建另一个表。 <br>
+为此，您可以再次执行上面的步骤，只不过要使用另一个表名称。 <br>
+完成此操作后，只需打开项目中的 Setting.setting 文件，将 NORTHWNDConnectionString <br>
+更改为连接到新表。<br>
+<br>
+<br>
+*****<br>
+在 SharePoint 站点上创建外部列表<br>
+*****<br>
+<br>
+成功部署 BDC 模型后，现在便可以在 SharePoint 站点上创建外部列表，以操作数据。 <br>
+<br>
+为此，请执行以下操作： <br>
+<br>
+1. 转到 SharePoint 站点的主页。 通常为 Http://localhost。<br>
+2. 在站点的左上角处，选择“网站操作”-&gt;“更多选项”。 <br>
+3. 在“创建”页上，单击“外部列表”。<br>
+4. 在“新建”页上，提供列表的名称。在“数据源配置”部分，单击“选择外部内容类型”按钮。 <br>
+&nbsp; 在提示“外部内容类型选取器”时，选择刚刚部署的类型<br>
+&nbsp;（BdcSampleCSharp.BdcModel1.Customer 或 BdcSampleVB.Customer）。<br>
+<br>
+&nbsp; *注意：如果您无法在“外部内容类型”选取器中看到任何类型，这可能是因为您未被授予访问 <br>
+&nbsp; &nbsp;BDC 元数据存储区的权限。 若要授予此权限，请转到“SharePoint <br>
+&nbsp; &nbsp;管理中心”页，单击“管理服务应用程序”[Manage Service <br>
+&nbsp; &nbsp;applications]，然后单击“业务数据连接服务”。 在“查看外部内容类型”[View External <br>
+&nbsp; &nbsp;Content Types]页上，单击功能区中的“设置元数据存储区权限”[Set Metadata Store <br>
+&nbsp; &nbsp;Permissions]。 然后，在“设置元数据存储区权限”[Set Metadata Store <br>
+&nbsp; &nbsp;Permissions]对话框中添加您的用户名，并授予权限。<br>
+<br>
+5. 在“新建”页上单击“确定”。<br>
+<br>
+现在，应该可以在 SharePoint 页上看到客户列表，并且可以创建/更新/删除客户信息。 <br>
+更改将在数据库中实时进行。<br>
+</p>
+
+</div>
+
+
+    </div>
+</body>
+</html>
